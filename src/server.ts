@@ -10,7 +10,7 @@ const app = express();
 app.use(express.json());
 
 // routes
-app.use("/api/auth", authRouter);
+app.use("/api/v1/auth", authRouter);
 
 // Home routes
 app.get("/", (req: Request, res: Response) => {

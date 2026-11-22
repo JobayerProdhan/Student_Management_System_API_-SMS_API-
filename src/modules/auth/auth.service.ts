@@ -49,4 +49,43 @@ export const register_student = async (data: RegisterStudent) => {
 
     throw error;
   }
+
+
+
 };
+
+
+export const login_user = async (
+    email:string,
+    password:string
+) => {
+    //1. Find user by email 
+    const result = await pool.query(
+        `SELECT id ,name,email,password,role
+        FROM  users
+        WHERE email = $1`,
+        [email]
+    );
+
+    //2. Check if user exists 
+    if(result.rows.length === 0){
+        return null;
+    }
+
+    const user = result.rows[0];
+
+    // 3. Compare password 
+    const is_password_matched = await bcrypt.compare(
+        password,
+        user.password
+    );
+
+    if(!is_password_matched){
+        return null;
+    }
+
+    // 4. Remove password before returning user 
+    const {password:hashed_password,...safeUser} = user;
+
+    return safeUser;
+}
