@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import express, { Request, Response } from "express";
 import authRouter from "./modules/auth/auth.route.js";
+import profileRoute from "./modules/auth/profile.route.js";
 
 dotenv.config();
 
@@ -11,6 +12,7 @@ app.use(express.json());
 
 // routes
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1", profileRoute);
 
 // Home routes
 app.get("/", (req: Request, res: Response) => {
