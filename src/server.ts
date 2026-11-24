@@ -6,6 +6,7 @@ import adminRoute from "./modules/auth/admin.route.js";
 import studentRoute from "./modules/students/student.route.js"
 dotenv.config();
 
+
 const app = express();
 
 // middleware
